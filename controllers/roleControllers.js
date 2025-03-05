@@ -1,31 +1,38 @@
-const Role = require("../models/roles");
+const Roles = require("../models/role");
+//const Role = require("../models/Role");
 
-// Create a new role
+// Create a new customer
 exports.create = async (req, res) => {
     try {
-        const role = await Role.create({ roleName: req.body.roleName });
-        res.status(201).json({ success: true, role });
+        const roles = await Roles.create({
+            
+            rolesId: req.body.rolesId,
+            rolesName: req.body.rolesName
+           
+                     
+        });
+        res.status(201).json({ success: true, customer });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
     }
 };
 
-// Get all roles
+// Get all customers
 exports.findAll = async (req, res) => {
     try {
-        const roles = await Role.findAll();
-        res.status(200).json({ success: true, roles });
+        const customers = await Roles.findAll();
+        res.status(200).json({ success: true, customers });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
     }
 };
 
-// Get a role by ID
+// Get a customer by ID
 exports.findOne = async (req, res) => {
     try {
-        const role = await Role.findByPk(req.params.id);
-        if (role) {
-            res.status(200).json({ success: true, role });
+        const customer = await Roles.findByPk(req.params.id);
+        if (customer) {
+            res.status(200).json({ success: true, customer });
         } else {
             res.status(404).json({ success: false, message: "Role not found" });
         }
@@ -34,33 +41,31 @@ exports.findOne = async (req, res) => {
     }
 };
 
-// Update a role by ID
+// Update a customer by ID
 exports.update = async (req, res) => {
     try {
-        const [updated] = await Role.update(req.body, {
-            where: { roleID: req.params.id },
+        const [updated] = await Roles.update(req.body, {
+            where: { customerId: req.params.id },
         });
-
         if (updated) {
-            const updatedRole = await Role.findByPk(req.params.id);
-            res.status(200).json({ success: true, updatedRole });
+            const updatedCustomer = await Role.findByPk(req.params.id);
+            res.status(200).json({ success: true, updatedCustomer });
         } else {
-            res.status(404).json({ success: false, message: "Role not found" });
+            res.status(404).json({ success: false, message: "Role  not found" });
         }
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
     }
 };
 
-// Delete a role by ID
-exports.delete = async (req, res) => {
+// Delete a customer by ID
+exports.deleteCustomer = async (req, res) => {
     try {
-        const deleted = await Role.destroy({
-            where: { roleID: req.params.id },
+        const deleted = await Roles.destroy({
+            where: { customerId: req.params.id },
         });
-
         if (deleted) {
-            res.status(204).json({ success: true, message: "Role deleted" });
+            res.status(204).json({ success: true, message: "Role  deleted" });
         } else {
             res.status(404).json({ success: false, message: "Role not found" });
         }

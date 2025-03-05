@@ -3,15 +3,7 @@ const Product = require("../models/product");
 // Create a new product
 exports.create = async (req, res) => {
     try {
-        const product = await Product.create({
-            productName: req.body.productName,
-            description: req.body.description,
-            unitPrice: req.body.unitPrice,
-            stock: req.body.stock,
-            subCategoryID: req.body.subCategoryID,
-            brandID: req.body.brandID,
-            imageURL: req.body.imageURL
-        });
+        const product = await Product.create(req.body);
         res.status(201).json({ success: true, product });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
@@ -46,8 +38,9 @@ exports.findOne = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const [updated] = await Product.update(req.body, {
-            where: { productID: req.params.id },
+            where: { ProductID: req.params.id },
         });
+
         if (updated) {
             const updatedProduct = await Product.findByPk(req.params.id);
             res.status(200).json({ success: true, updatedProduct });
@@ -60,13 +53,14 @@ exports.update = async (req, res) => {
 };
 
 // Delete a product by ID
-exports.deleteProduct = async (req, res) => {
+exports.delete = async (req, res) => {
     try {
         const deleted = await Product.destroy({
-            where: { productID: req.params.id },
+            where: { ProductID: req.params.id },
         });
+
         if (deleted) {
-            res.status(204).json({ success: true, message: "Product deleted" });
+            res.status(200).json({ success: true, message: "Product deleted" });
         } else {
             res.status(404).json({ success: false, message: "Product not found" });
         }

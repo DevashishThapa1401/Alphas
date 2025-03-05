@@ -4,8 +4,9 @@ const Permission = require("../models/permissions");
 exports.create = async (req, res) => {
     try {
         const permission = await Permission.create({
-            permissionName: req.body.permissionName,
-            description: req.body.description
+            PermissioneName: req.body.PermissionName,
+            PermissioneId: req.body.PermissioneId
+            
         });
         res.status(201).json({ success: true, permission });
     } catch (error) {

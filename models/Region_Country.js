@@ -1,36 +1,36 @@
-const { sequelize, DataTypes } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/db");
 const Region = require("./region");
 const Country = require("./country");
 
 const RegionCountry = sequelize.define("RegionCountry", {
-    regionCountryID: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    },
-    regionID: {
+    RegionID: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: Region,
-            key: "regionID",
+            key: "RegionID",
         },
         onDelete: "CASCADE",
     },
-    countryID: {
+    CountryID: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: Country,
-            key: "countryID",
+            key: "CountryID",
         },
         onDelete: "CASCADE",
     },
+}, {
+    timestamps: false,
+    tableName: "RegionCountry",
+    primaryKey: ["RegionID", "CountryID"] // Defining composite primary key
 });
 
-// Associations
-Region.belongsToMany(Country, { through: RegionCountry, foreignKey: "regionID" });
-Country.belongsToMany(Region, { through: RegionCountry, foreignKey: "countryID" });
+// Define associations
+Region.belongsToMany(Country, { through: RegionCountry, foreignKey: "RegionID" });
+Country.belongsToMany(Region, { through: RegionCountry, foreignKey: "CountryID" });
 
 module.exports = RegionCountry;
+

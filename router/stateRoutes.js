@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { create, findAll, findOne, update, deleteState } = require('../controllers/stateControllers');
+const { create,findAll,findOne,update,deleteCustomer} = require("../controllers/stateControllers");
 
 router.route('/')
 .get(findAll)
@@ -9,6 +9,6 @@ router.route('/')
 router.route('/:id')
 .get(findOne)
 .patch(update)
-.delete(deleteState);
+.delete(deleteCustomer);
 
 module.exports = router;

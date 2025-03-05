@@ -1,14 +1,14 @@
 const { DataTypes } = require('sequelize');
 const { sequelize }= require('../config/db'); // Ensure this path is correct
 
-const Permission  = sequelize.define('Permission ', {
-    PermissionID: {
+const Roles = sequelize.define('Roles', {
+    RoleID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
     },
-    PermissionName: {
+    RoleName: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -17,5 +17,5 @@ const Permission  = sequelize.define('Permission ', {
     timestamps: false // Set to true if you want createdAt and updatedAt fields
 });
 
-module.exports = Permission ;
+module.exports = Roles;
 

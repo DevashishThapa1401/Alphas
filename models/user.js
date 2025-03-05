@@ -1,24 +1,21 @@
-const { sequelize, DataTypes } = require("sequelize");
+const {  DataTypes } = require("sequelize");
 const { sequelize } = require("../config/db");
-const Role = require("./roles");
+const Country = require("./country");
 const State = require("./state");
 
-const User = sequelize.define("User", {
-    UserID: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true,
-    },
-    FirstName: { type: DataTypes.STRING, allowNull: false },
-    LastName: { type: DataTypes.STRING, allowNull: false },
-    Email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    Password: { type: DataTypes.STRING, allowNull: false },
-    Phone: { type: DataTypes.STRING },
-    Address: { type: DataTypes.TEXT },
+const user = sequelize.define("user", {
+    userID: { type: DataTypes.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true },
+    firstName: { type: DataTypes.STRING, allowNull: false },
+    lastName: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    password: { type: DataTypes.STRING, allowNull: false },
+    phone: { type: DataTypes.STRING },
+    address: { type: DataTypes.TEXT },
+    stateId:{type: DataTypes.INTEGER, autoIncrement: true, allowNull: false, primaryKey: true},
+    roleId:{type: DataTypes.INTEGER,autoIncrement: true,allowNull: false,primaryKey: true,}
 });
 
-User.belongsTo(Role, { foreignKey: "RoleID" });
-User.belongsTo(State, { foreignKey: "StateID" });
+Customer.belongsTo(Country, { foreignKey: "roleId" });
+Customer.belongsTo(State, { foreignKey: "StateID" });
 
-module.exports = User;
+module.exports = user;

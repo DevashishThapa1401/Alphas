@@ -1,14 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { create, findAll, findOne, update, deleteRegion_Country } = require('../controllers/region_countryControllers');
+const regionCountryController = require("../controllers/regionCountryController");
 
-router.route('/')
-.get(findAll)
-.post(create);
+// Create a new Region-Country association
+router.post("/", regionCountryController.create);
 
-router.route('/:countryid/:regionid')
-.get(findOne)
-.patch(update)
-.delete(deleteRegion_Country);
+// Get all Region-Country associations
+router.get("/", regionCountryController.findAll);
+
+// Get all countries for a specific region
+router.get("/region/:regionId", regionCountryController.findCountriesByRegion);
+
+// Get all regions for a specific country
+router.get("/country/:countryId", regionCountryController.findRegionsByCountry);
+
+// Delete a specific Region-Country association
+router.delete("/", regionCountryController.delete);
 
 module.exports = router;

@@ -4,10 +4,12 @@ const Review = require("../models/review");
 exports.create = async (req, res) => {
     try {
         const review = await Review.create({
+            reviewID: req.body.reviewID,
             userID: req.body.userID,
             productID: req.body.productID,
             rating: req.body.rating,
-            comment: req.body.comment
+            reviewText: req.body.reviewText,
+            reviewDate: req.body.reviewDate
         });
         res.status(201).json({ success: true, review });
     } catch (error) {

@@ -1,14 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { create, findAll, findOne, update, deletePermissions } = require('../controllers/permissionsControllers');
+const permissionController = require("../controllers/permissionControllers");
 
-router.route('/')
-.get(findAll)
-.post(create);
+// Create a new permission
+router.post("/", permissionController.create);
 
-router.route('/:id')
-.get(findOne)
-.patch(update)
-.delete(deletePermissions);
+// Get all permissions
+router.get("/", permissionController.findAll);
+
+// Get a single permission by ID
+router.get("/:id", permissionController.findOne);
+
+// Update a permission by ID
+router.put("/:id", permissionController.update);
+
+// Delete a permission by ID
+router.delete("/:id", permissionController.deletePermission);
 
 module.exports = router;
